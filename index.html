@@ -50,6 +50,13 @@
       </div>
     </div>
     <script>
+      // Object.freeze is optional but it will ensure that the `players` object is read-only
+      const players = Object.freeze({
+        x: "X",
+        o: "O",
+      });
+
+      const currentPlayer = players.x;
       const tiles = document.querySelectorAll(".tile");
 
       console.log("tiles", tiles);
