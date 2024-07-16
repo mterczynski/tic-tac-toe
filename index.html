@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic tac toe</title>
+    <style>
+      .board-container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .btn-restart {
+        font-size: 22px;
+        margin-bottom: 15px;
+      }
+
+      .board {
+        display: flex;
+        flex-direction: column;
+        border-left: 1px solid black;
+        border-top: 1px solid black;
+      }
+
+      .row {
+        display: flex;
+      }
+
+      .tile {
+        width: 200px;
+        height: 200px;
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+        font-size: 100px;
+        text-align: center;
+        line-height: 200px;
+        user-select: none;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="board-container">
+      <button id="btn-restart" class="btn-restart">Restart</button>
+      <div class="board">
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+        <div class="row">
+          <div class="tile"></div>
+          <div class="tile"></div>
+          <div class="tile"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let currentPlayer = "X";
+      let winner = null;
+      let isGameOver = false;
+
+      function checkWin() {
+        const tileValues = Array.from(document.querySelectorAll(".tile")).map(
+          (tile) => tile.innerHTML
+        );
+        const boardByRows = [
+          [tileValues[0], tileValues[1], tileValues[2]],
+          [tileValues[3], tileValues[4], tileValues[5]],
+          [tileValues[6], tileValues[7], tileValues[8]],
+        ];
+        const boardByColumns = [
+          [tileValues[0], tileValues[3], tileValues[6]],
+          [tileValues[1], tileValues[4], tileValues[7]],
+          [tileValues[2], tileValues[5], tileValues[8]],
+        ];
+        const diagonals = [
+          [tileValues[0], tileValues[4], tileValues[8]],
+          [tileValues[2], tileValues[4], tileValues[6]],
+        ];
+
+        [boardByRows, boardByColumns, diagonals].forEach((tileSet) => {
+          tileSet.forEach((subTileSet) => {
+            if (subTileSet.join("") === "XXX") {
+              winner = "X";
+            }
+            if (subTileSet.join("") === "OOO") {
+              winner = "O";
+            }
+          });
+        });
+
+        const boardIsFull = tileValues.every(
+          (tileValue) => tileValue === "X" || tileValue === "O"
+        );
+
+        if (winner) {
+          alert(`The winner is ${winner}`);
+          isGameOver = true;
+        } else if (boardIsFull) {
+          alert(`Game drawn`);
+          isGameOver = true;
+        }
+      }
+
+      document.querySelector("#btn-restart").addEventListener("click", () => {
+        currentPlayer = "X";
+        winner = null;
+        isGameOver = false;
+        document.querySelectorAll(".tile").forEach((tile) => {
+          tile.innerHTML = "";
+        });
+      });
+
+      document.querySelectorAll(".tile").forEach((tile) => {
+        tile.addEventListener("click", () => {
+          if (isGameOver || tile.innerHTML === "X" || tile.innerHTML === "O") {
+            return;
+          }
+
+          tile.innerHTML = currentPlayer;
+          currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+          checkWin();
+        });
+      });
+    </script>
+  </body>
+</html>
