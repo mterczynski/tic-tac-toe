@@ -23,10 +23,10 @@
         width: max-content;
       }
     </style>
-
     <script>
       const tiles = document.querySelectorAll(".tile");
 
+      console.log("tiles", tiles);
       tiles.forEach((tile) => {
         tile.addEventListener("click", () => {
           tile.innerHTML = "X";
