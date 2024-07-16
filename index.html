@@ -109,6 +109,12 @@
 
         return { isGameOver, winner, isGameDrawn };
       }
+
+      function isBoardFull(board) {
+        return board.every((tile) =>
+          [players.x, players.o].includes(tile.innerHtml)
+        );
+      }
     </script>
   </body>
 </html>
