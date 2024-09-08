@@ -67,7 +67,11 @@
 
       tiles.forEach((tile) => {
         tile.addEventListener("click", () => {
-          if (tile.innerHTML === players.x || tile.innerHTML === players.o) {
+          if (
+            tile.innerHTML === players.x ||
+            tile.innerHTML === players.o ||
+            checkGameOver().isGameOver
+          ) {
             return;
           }
 
