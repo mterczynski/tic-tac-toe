@@ -35,6 +35,11 @@
         border-right: 1px solid black;
         width: max-content;
       }
+
+      .resetButton {
+        font-size: 24px;
+        margin-top: 10px;
+      }
     </style>
   </head>
   <body>
@@ -55,6 +60,8 @@
         <div class="tile"></div>
       </div>
     </div>
+
+    <button id="resetButton" class="resetButton">Reset</button>
 
     <script>
       // Object.freeze is optional but it will ensure that the `players` object is read-only
@@ -138,6 +145,13 @@
           [players.x, players.o].includes(tile.innerHTML)
         );
       }
+
+      document.querySelector("#resetButton").addEventListener("click", () => {
+        currentPlayer = players.x;
+        tiles.forEach((tile) => {
+          tile.innerHTML = "";
+        });
+      });
     </script>
   </body>
 </html>
