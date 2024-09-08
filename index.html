@@ -73,6 +73,15 @@
 
           tile.innerHTML = currentPlayer;
           currentPlayer = currentPlayer === players.x ? players.o : players.x;
+
+          // check game state after making a move:
+          const { isGameOver, winner, isGameDrawn } = checkGameOver();
+
+          if (winner) {
+            alert(`Game won by ${winner}`);
+          } else if (isGameDrawn) {
+            alert(`Game drawn`);
+          }
         });
       });
 
