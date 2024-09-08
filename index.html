@@ -29,6 +29,16 @@
         width: max-content;
       }
     </style>
+
+    <script>
+      const tiles = document.querySelectorAll(".tile");
+
+      tiles.forEach((tile) => {
+        tile.addEventListener("click", () => {
+          tile.innerHTML = "X";
+        });
+      });
+    </script>
   </head>
   <body>
     <div class="board">
