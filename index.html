@@ -57,12 +57,22 @@
     </div>
 
     <script>
+      // Object.freeze is optional but it will ensure that the `players` object is read-only
+      const players = Object.freeze({
+        x: "X",
+        o: "O",
+      });
+      let currentPlayer = players.x;
       const tiles = document.querySelectorAll(".tile");
 
-      console.log("tiles", tiles);
       tiles.forEach((tile) => {
         tile.addEventListener("click", () => {
-          tile.innerHTML = "X";
+          if (tile.innerHTML === players.x || tile.innerHTML === players.o) {
+            return;
+          }
+
+          tile.innerHTML = currentPlayer;
+          currentPlayer = currentPlayer === players.x ? players.o : players.x;
         });
       });
     </script>
